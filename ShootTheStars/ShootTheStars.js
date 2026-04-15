@@ -8,6 +8,8 @@ export default class ShootTheStars {
         initShop()
         startItemsSync()
         renderItemsList()
+
+        
     }
 
     constructor(ctx) {
@@ -15,6 +17,8 @@ export default class ShootTheStars {
         this.starGroup = new StarGroup()
         this.harvesterGroup = new HarvesterGroup(this.starGroup)
         this.starGroup.spawnInitalStars()
+
+        this.dragon = null
     }
 
     draw() {
@@ -23,7 +27,7 @@ export default class ShootTheStars {
         this.ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
         this.starGroup.draw(this.ctx)
-        this.harvesterGroup.draw(this.ctx)
+        this.harvesterGroup.draw(this.ctx, this.dragon)
     }
 
     update(deltaTime) {

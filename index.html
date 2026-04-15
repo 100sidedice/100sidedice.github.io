@@ -9,9 +9,13 @@
 
 </head>
 <body>
+    
     <canvas id="canvas"></canvas>
     <script type="module" src="script.js"></script>
-
+    <!-- Debug info panel (hidden by default, shows when error appear (console replacement for when I code in school)) -->
+    <div id="debug"> </div>
+    <script src="Core/Debug.js" type="module"></script>
+    
     <div class="header">
         <a class="profile-link tilt" href="">
             <img class="profile-img" src="profilepic.png" alt="Profile">
@@ -19,11 +23,11 @@
         <h1>100sidedice</h1>
     </div>
     <div id="link_zone">
-        <div class="linkbox tilt"><a href="https://github.com/100sidedice" target="_blank" rel="noopener">Github</a></div>
-        <div class="linkbox tilt"><a href="/README.md">Readme</a></div>
-        <div class="linkbox tilt" id="docs-link">Docs</div>
-        <div class="linkbox tilt" id="about-link">About</div>
-        <div class="linkbox tilt" id="play-link">Play</div>
+        <div class="linkbox tilt" id="github"><a href="https://github.com/100sidedice" target="_blank" rel="noopener">Github</a></div>
+        <div class="linkbox tilt" id="readme"><a href="/README.md">Readme</a></div>
+        <div class="linkbox tilt" id="projects">Projects</div>
+        <div class="linkbox tilt" id="about">About</div>
+        <div class="linkbox tilt" id="play">Play</div>
     </div>
     <div id="items"></div>
     <!-- Shop modal (hidden until an item is clicked) -->

@@ -85,21 +85,26 @@ class Harvester {
         }
     }
 
-    draw(ctx) {
-        // draw a subtle red line toward target
-        if (this.target) {
-            ctx.strokeStyle = 'rgba(255,80,80,0.35)'
-            ctx.lineWidth = 1
+    draw(ctx, dragon = null) {
+        if (!dragon){
+            // draw a subtle red line toward target
+            if (this.target) {
+                ctx.strokeStyle = 'rgba(255,80,80,0.35)'
+                ctx.lineWidth = 1
+                ctx.beginPath()
+                ctx.moveTo(this.pos.x, this.pos.y)
+                ctx.lineTo(this.target.pos.x, this.target.pos.y)
+                ctx.stroke()
+            }
+            // draw blue harvester
+            ctx.fillStyle = '#35aaff33'
             ctx.beginPath()
-            ctx.moveTo(this.pos.x, this.pos.y)
-            ctx.lineTo(this.target.pos.x, this.target.pos.y)
-            ctx.stroke()
+            ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2)
+            ctx.fill()
+            return;
+        }else{
+            ctx.drawImage(dragon, this.pos.x-this.radius, this.pos.y-this.radius, this.radius*2, this.radius*2);
         }
-        // draw blue harvester
-        ctx.fillStyle = '#35aaff33'
-        ctx.beginPath()
-        ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2)
-        ctx.fill()
 
     }
 }

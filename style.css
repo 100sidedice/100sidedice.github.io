@@ -3,6 +3,21 @@ html, body {
   margin: 0;
 }
 
+/* debug box */
+#debug {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 20px;
+    font-family: monospace;
+    white-space: pre; /* preserves spacing and newlines exactly */
+    background: #ffffff;
+    z-index: 9999;
+    font-size:13px;
+    color:#ccc;
+    user-select: none;
+}
 
 canvas {
   display: block;
