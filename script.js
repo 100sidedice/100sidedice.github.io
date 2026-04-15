@@ -91,6 +91,7 @@ class Program {
         await program.mainBoard.loadJson('text.json')
 
         program.mainBoard.addButton('about', 'click', 'about')
+        program.mainBoard.addButton('play', 'click', 'play')
 
         const dragon = new Image();
         dragon.src = "Dragon/dragon.png";

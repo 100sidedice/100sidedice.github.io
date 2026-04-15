@@ -1,6 +1,6 @@
 // Shop and item UI helpers for ShootTheStars
 // Relies on globals: document, window.saver, window.upgrades, SETTINGS
-
+import { formatLargeNumber } from "./bigNumbers.js"
 
 const itemsContainer = document.querySelector('#items')
 let itemsBox = null
@@ -44,13 +44,13 @@ function renderItemsList() {
         } catch (e) { }
 
         if (existing[name]) {
-            existing[name].textContent = `${name}:${displayAmount}`
+            existing[name].textContent = `${name}:${formatLargeNumber(displayAmount,7)}`
             delete existing[name]
         } else {
             const li = document.createElement('li')
             li.dataset.itemName = name
             li.className = 'item'
-            li.textContent = `${name}:${displayAmount}`
+            li.textContent = `${name}:${formatLargeNumber(displayAmount,7)}`
             box.appendChild(li)
         }
     }

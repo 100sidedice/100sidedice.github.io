@@ -88,23 +88,26 @@ class Harvester {
     draw(ctx, dragon = null) {
         if (!dragon){
             // draw a subtle red line toward target
-            if (this.target) {
-                ctx.strokeStyle = 'rgba(255,80,80,0.35)'
-                ctx.lineWidth = 1
-                ctx.beginPath()
-                ctx.moveTo(this.pos.x, this.pos.y)
-                ctx.lineTo(this.target.pos.x, this.target.pos.y)
-                ctx.stroke()
-            }
-            // draw blue harvester
+            
             ctx.fillStyle = '#35aaff33'
             ctx.beginPath()
             ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2)
             ctx.fill()
-            return;
         }else{
-            ctx.drawImage(dragon, this.pos.x-this.radius, this.pos.y-this.radius, this.radius*2, this.radius*2);
+            
+            // draw blue harvester
+            const dx = this.target ? this.target.pos.x - this.pos.x : this.vel.x
+            if(dx > 0){
+                ctx.save()
+                ctx.translate(this.pos.x, this.pos.y)
+                ctx.scale(-1,1)
+                ctx.drawImage(dragon, -this.radius, -this.radius, this.radius*2, this.radius*2);
+                ctx.restore()
+            }else{
+                ctx.drawImage(dragon, this.pos.x-this.radius, this.pos.y-this.radius, this.radius*2, this.radius*2);
+            }
         }
+        
 
     }
 }
@@ -149,7 +152,7 @@ export class HarvesterGroup {
         for (const h of this.harvesters) h.update(dt)
     }
 
-    draw(ctx) {
-        for (const h of this.harvesters) h.draw(ctx)
+    draw(ctx, dragon=null) {
+        for (const h of this.harvesters) h.draw(ctx, dragon)
     }
 }

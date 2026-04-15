@@ -2,6 +2,8 @@ import { StarGroup } from "./effects/stars.js"
 import { HarvesterGroup } from "./effects/harvesters.js"
 import { initShop, startItemsSync, stopItemsSync, renderItemsList } from "./shop.js"
 
+
+
 export default class ShootTheStars {
     static async preload() {
         // initialize shop UI and start syncing
@@ -19,6 +21,10 @@ export default class ShootTheStars {
         this.starGroup.spawnInitalStars()
 
         this.dragon = null
+
+        window.Debug.createSignal("setStars", (amount)=>{
+           window.saver.setData('items/starfragments', amount);
+        })
     }
 
     draw() {

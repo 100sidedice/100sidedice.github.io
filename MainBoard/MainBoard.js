@@ -82,17 +82,11 @@ export default class MainBoard {
     getMenuAction(action){
         switch(action){
             case 'about':
-                const textArray = this.textFile["about"]["text"]
-                const tokens = this.textFile["about"]["types"]
-
-                let finalText = ""
-                for (let i = 0; i < textArray.length; i++){
-                    if (tokens.length < i) break;
-                    finalText += `<${tokens[i]}>`
-                    finalText += textArray[i]
-                    finalText += `</${tokens[i]}>`
-                }
-                this.setText(finalText)
+                this.setText(parseText(this.textFile, "about", "text", "types"))
+                this.toggle()
+                break;
+            case 'play':
+                this.setText(parseText(this.textFile, "play", "text", "types"))
                 this.toggle()
                 break;
             default:
@@ -100,4 +94,17 @@ export default class MainBoard {
                 break;
         }
     }
+}
+function parseText(textFile, name_key, text_key, token_key){
+    const textArray = textFile[name_key][text_key]
+    const tokens = textFile[name_key][token_key]
+
+    let finalText = ""
+    for (let i = 0; i < textArray.length; i++){
+        if (tokens.length < i) break;
+        finalText += `<${tokens[i]}>`
+        finalText += textArray[i]
+        finalText += `</${tokens[i]}>`
+    }
+    return finalText
 }

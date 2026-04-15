@@ -15,6 +15,7 @@ export const settings = {
     "PURCHASE_PARTICLE_MS": 700,
     "PURCHASE_PARTICLE_COUNT": 18,
     "PURCHASE_PARTICLE_SPEED": 220,
+    "sigFigs":7
 }
 
 export default function globalizeSettings(){

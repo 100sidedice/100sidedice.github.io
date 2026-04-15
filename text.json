@@ -14,5 +14,19 @@
             "h4",
             "p"
         ]
+    },
+    "play":{
+        "text":[
+            "Shoot the stars",
+            "Having just a website is boring. I'm a game developer, after all. So I made the background a game.",
+            "So, I present <b>Shoot The Stars</b>: An incremental game about destrying the universe, one star at a time.",
+            "Start by clicking on of the stars in the background to gain star fragments."
+        ],
+        "types":[
+            "h2",
+            "p",
+            "p",
+            "p"
+        ]
     }
 }

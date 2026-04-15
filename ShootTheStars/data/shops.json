@@ -26,6 +26,14 @@
                 "unlocks_shop": "harvesters",
                 "condition": { "items/starfragments": 500 },
                 "fog_condition": { "items/starfragments": 750 }
+            },
+            "black_hole": {
+                "name": "Buy a black hole",
+                "max" : 1,
+                "starting_cost":10000000,
+                "unlocks_shop":"black_hole",
+                "condition": {"items/starfragments" : 7500000},
+                "fog_condition": {"items/starfragments" : 5000000}
             }
         }
     },
@@ -62,6 +70,18 @@
                 "currency": "harvesters",
                 "harvester_threshold": 20,
                 "effect": { "stat": "starCount", "action": "add", "amount": 10 }
+            }
+        }
+    },
+    "black_hole":{
+        "header": "Black hole shop",
+        "currency": "black_hole",
+        "items":{
+            "black_hole": {
+                "name": "Start forming",
+                "max" : 1,
+                "starting_cost":1,
+                "effect": { "stat": "BlackHolePerSecond", "action": "add", "amount": 1 }
             }
         }
     }
