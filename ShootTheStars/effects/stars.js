@@ -1,3 +1,5 @@
+import DataManager from '../../Core/DataManager.js'
+
 class StarFragment {
     constructor(fragmentGroup, pos, size, speed, angle) {
         this.fragmentGroup = fragmentGroup;
@@ -40,9 +42,10 @@ class Star {
         if (this.pos.x < 0 || this.pos.x > window.innerWidth || this.pos.y < 0 || this.pos.y > window.innerHeight) {
             this.starGroup.remove(this);
         }
-        if (window?.mouse.left.isHeld()){
-            const dx = this.pos.x - window.mouse.x;
-            const dy = this.pos.y - window.mouse.y;
+        const mouse = DataManager.mouse
+        if (mouse.left.isHeld()){
+            const dx = this.pos.x - mouse.x;
+            const dy = this.pos.y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < SETTINGS.STAR_SIZE_MAX + 10) {
                 // Collect this star (spawn visual fragments + increment stored fragments)
@@ -80,8 +83,8 @@ export class StarGroup {
         // desired star count may be modified by upgrades (harvester shop 'starCount' stat)
         let desiredCount = SETTINGS.STAR_COUNT
         try {
-            if (window.upgrades && typeof window.upgrades.getStat === 'function') {
-                const v = window.upgrades.getStat('harvesters', 'starCount', SETTINGS.STAR_COUNT)
+            if (DataManager.upgrades) {
+                const v = DataManager.upgrades.getStat('harvesters', 'starCount', SETTINGS.STAR_COUNT)
                 if (!Number.isNaN(Number(v))) desiredCount = Math.max(0, Math.floor(Number(v)))
             }
         } catch (e) {}
@@ -112,10 +115,11 @@ export class StarGroup {
             this.fragments.push(new StarFragment(this, {x: star.pos.x, y: star.pos.y}, size, speed, angle));
         }
         // stored gain from upgrades (affects player inventory)
-        const storeGain = (window.upgrades && typeof window.upgrades.getStat === 'function')
-            ? Math.max(0, Math.floor(window.upgrades.getStat('starfragments', 'fragmentsPerStar', 1)))
+        const storeGain = DataManager.upgrades
+            ? Math.max(0, Math.floor(DataManager.upgrades.getStat('starfragments', 'fragmentsPerStar', 1)))
             : 1
-        window.saver.setData('items/starfragments', (window.saver.getData('items/starfragments') || 0) + storeGain);
+        const prev = DataManager.saver.getData('items/starfragments', 0)
+        DataManager.saver.setData('items/starfragments', prev + storeGain);
         this.remove(star)
     }
 }

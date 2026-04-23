@@ -38,31 +38,31 @@ class UpgradesManager {
         for (const [upgradeId, def] of Object.entries(shop.items)) {
             const effect = def.effect
             if (!effect || effect.stat !== statName) continue
-            let bought = this.saver.getData(`upgrades/${itemName}/${upgradeId}`, 0) || 0
+            let bought = this.saver.getData(`upgrades/${itemName}/${upgradeId}`, 0)
             // compatibility: check old-style display-name key if no purchases found
             if (!bought && def && def.name) {
-                const oldBought = this.saver.getData(`upgrades/${itemName}/${def.name}`, 0) || 0
+                const oldBought = this.saver.getData(`upgrades/${itemName}/${def.name}`, 0)
                 if (oldBought) bought = oldBought
             }
             if (!bought) continue
-            const amt = Number(effect.amount || 0)
+            const amt = effect.amount ?? 0
             const action = (effect.action || 'add')
             if (action === 'add') {
                 let effective = amt * bought
-                // support optional harvester-threshold scaling: def.harvester_threshold
-                if (def.harvester_threshold) {
-                    const threshold = Number(def.harvester_threshold) || 0
-                    const harvesters = Number(this.getStat('harvesters', 'amount', 0)) || 0
-                    const scale = threshold > 0 ? Math.min(1, harvesters / threshold) : 1
+                // support optional threshold scaling driven by JSON (e.g. def.threshold or def.harvester_threshold)
+                const threshold = def.threshold ?? def.harvester_threshold ?? 0
+                if (threshold > 0) {
+                    const subjectAmount = this.getStat(itemName, 'amount', 0) ?? 0
+                    const scale = Math.min(1, subjectAmount / threshold)
                     effective = effective * scale
                 }
                 addSum += effective
             } else if (action === 'mul' || action === 'multiply') {
                 let effectivePow = Math.pow(amt, bought)
-                if (def.harvester_threshold) {
-                    const threshold = Number(def.harvester_threshold) || 0
-                    const harvesters = Number(this.getStat('harvesters', 'amount', 0)) || 0
-                    const scale = threshold > 0 ? Math.min(1, harvesters / threshold) : 1
+                const thresholdMul = def.threshold ?? def.harvester_threshold ?? 0
+                if (thresholdMul > 0) {
+                    const subjectAmount = this.getStat(itemName, 'amount', 0) ?? 0
+                    const scale = Math.min(1, subjectAmount / thresholdMul)
                     // blend between 1 and effectivePow based on scale
                     effectivePow = 1 + (effectivePow - 1) * scale
                 }

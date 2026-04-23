@@ -11,6 +11,8 @@
   Notes: avoids localStorage in favor of IndexedDB for reliability and size.
 */
 
+import Signal from './Signal.js';
+
 class Saver {
     constructor({dbName = '100sidedice_saves', storeName = 'saves', saveId = 'default'} = {}) {
         this.dbName = dbName;
@@ -18,6 +20,8 @@ class Saver {
         this.saveId = saveId;
         this.data = {};
         this._db = null;
+        // Signal that emits (path, value) when a value changes via setData
+        this.onChange = new Signal();
         this.ready = this._init();
     }
 
@@ -145,6 +149,7 @@ class Saver {
 
         if (!path || path === '/') {
         if (typeof value === 'object') this.data = value; else throw new Error('Root value must be an object');
+        try { this.onChange.emit('/', this.data); } catch (e) {}
         return this.data;
         }
         const segments = path.split(/[/.]+/).filter(Boolean);
@@ -160,6 +165,7 @@ class Saver {
             cursor = cursor[segment];
         }
         }
+        try { this.onChange.emit(path, value); } catch (e) {}
         return value;
     }
 

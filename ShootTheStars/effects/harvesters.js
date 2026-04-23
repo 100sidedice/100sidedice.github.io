@@ -1,3 +1,5 @@
+import DataManager from '../../Core/DataManager.js'
+
 class Harvester {
     constructor(group, x, y) {
         this.group = group
@@ -25,8 +27,8 @@ class Harvester {
     }
 
     update(dt) {
-        const speed = Number(this.group.getSpeed()) || 80
-        const drift = Number(this.group.getDrift()) || 0.15
+        const speed = this.group.getSpeed() ?? 80
+        const drift = this.group.getDrift() ?? 0.15
 
         if (!this.target || this.group.starGroup.stars.indexOf(this.target) === -1) {
             // unclaim previous if it was removed
@@ -121,17 +123,14 @@ export class HarvesterGroup {
 
     // query upgrades via global manager
     getAmount() {
-        if (window.upgrades && typeof window.upgrades.getStat === 'function') return Math.max(0, Math.floor(window.upgrades.getStat('harvesters','amount',0)))
-        return 0
+        return Math.max(0, Math.floor(DataManager.upgrades.getStat('harvesters','amount',0)))
     }
     getSpeed() {
-        if (window.upgrades && typeof window.upgrades.getStat === 'function') return Number(window.upgrades.getStat('harvesters','speed',80))
-        return 80
+        return DataManager.upgrades.getStat('harvesters','speed',80)
     }
     getDrift() {
         // default low drift (lots of sliding). Upgrades should increase this toward 1.0
-        if (window.upgrades && typeof window.upgrades.getStat === 'function') return Number(window.upgrades.getStat('harvesters','drift',0.15))
-        return 0.15
+        return DataManager.upgrades.getStat('harvesters','drift',0.15)
     }
 
     sync() {

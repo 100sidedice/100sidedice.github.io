@@ -11,7 +11,8 @@ export default class MainBoard {
         this.closeBtn.className = 'mainboard-close'
         this.closeBtn.setAttribute('aria-label', 'Close')
         this.closeBtn.textContent = '×'
-        this.closeBtn.addEventListener('click', ()=> this.clear())
+        this._onCloseClick = () => this.clear()
+        this.closeBtn.addEventListener('click', this._onCloseClick)
         this.panel.appendChild(this.closeBtn)
 
         // content container
@@ -23,6 +24,7 @@ export default class MainBoard {
         this._visible = false
         this._opacity = 0
         this._fadeSpeed = 3.0 // opacity units per second
+        this._boundButtons = []
         // don't absorb pointer events until visible
         this.container.style.pointerEvents = 'none'
         this.panel.style.pointerEvents = 'none'
@@ -65,9 +67,23 @@ export default class MainBoard {
         if (!this.panel) return
         const btn = document.querySelector(`#${buttonID}`)
         if (!btn) return
-        btn.addEventListener(buttonAction, () => {
-            this.getMenuAction(menuAction)
-        })
+        const handler = () => { this.getMenuAction(menuAction) }
+        btn.addEventListener(buttonAction, handler)
+        this._boundButtons.push({btn, action: buttonAction, handler})
+    }
+
+    // Remove all event listeners and DOM references
+    dispose() {
+        try {
+            if (this.closeBtn && this._onCloseClick) this.closeBtn.removeEventListener('click', this._onCloseClick)
+        } catch (e) {}
+        for (const b of this._boundButtons) {
+            try { b.btn.removeEventListener(b.action, b.handler) } catch (e) {}
+        }
+        this._boundButtons = []
+        try { if (this.panel && this.panel.parentNode) this.panel.parentNode.removeChild(this.panel) } catch (e) {}
+        this.panel = null
+        this.container = null
     }
     async loadJson(filePath){
         try {

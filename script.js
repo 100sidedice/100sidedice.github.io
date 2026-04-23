@@ -2,28 +2,22 @@ import globalizeSettings from "./ShootTheStars/data/settings.js"
 globalizeSettings() // Make settings available globally
 
 import ShootTheStars from "./ShootTheStars/ShootTheStars.js"
-import Saver from "./Core/Saver.js"
-import { Mouse, Keys } from "./Core/input.js"
-import UpgradesManager from "./ShootTheStars/upgrades.js"
+import DataManager from "./Core/DataManager.js"
 import MainBoard from "./MainBoard/MainBoard.js"
 
-
-// Input instances (globalized in input.js as classes)
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d') 
 
 /**
- * messy, but in this case just easier
+ * Initialize shared data and input via DataManager (avoids globals)
  */
-window.mouse = new Mouse(canvas)
-window.keys = new Keys()
-window.saver = new Saver({dbName: '100sidedice', saveId: 'default'})
-window.upgrades = new UpgradesManager(window.saver)
+// DataManager.init will create saver, upgrades, mouse, keys
+// and store them on the DataManager singleton.
 
 
 function resizeCanvas() {
-	const dpr = window.devicePixelRatio || 1
+    const dpr = window.devicePixelRatio ?? 1
 	// Set the CSS size to the viewport size
 	canvas.style.width = window.innerWidth + 'px'
 	canvas.style.height = window.innerHeight + 'px'
@@ -51,7 +45,7 @@ class Program {
         this.lastAutosave = performance.now()
         // Start autosave timer
         this.autosaveTimer = setInterval(() => {
-            window.saver.save()
+            DataManager.saver.save()
         }, this.autosaveInterval)
     }
 
@@ -63,8 +57,8 @@ class Program {
         this.deltaTime = Math.min(rawDt, 0.25)
         this.lastTime = now
 
-        window.keys.update(this.deltaTime)
-        window.mouse.update(this.deltaTime)
+        DataManager.keys.update(this.deltaTime)
+        DataManager.mouse.update(this.deltaTime)
         // update main information panel
         this.mainBoard.update(this.deltaTime)
 
@@ -77,12 +71,11 @@ class Program {
     }
     static async preload() {
         console.log('hello')
-        // wait for saver and upgrades so game state reflects upgrades immediately
-        await window.saver.ready
-        await window.upgrades._loadPromise
+        // initialize shared resources (saver, upgrades, input)
+        await DataManager.init({ canvas })
 
-        
-        ShootTheStars.preload() // initialize shop and start syncing items
+        // now that saver & upgrades are ready, initialize game/shop
+        await ShootTheStars.preload()
         
         // create program and mainBoard, then start loop
         const program = new Program()

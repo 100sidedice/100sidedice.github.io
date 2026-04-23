@@ -46,6 +46,7 @@
                 "max": 10,
                 "starting_cost": 200,
                 "cost_growth": 1.5,
+                "item_to_levels": "harvesters",
                 "effect": { "stat": "amount", "action": "add", "amount": 1 }
             },
             "speed": {
@@ -79,8 +80,9 @@
         "items":{
             "black_hole": {
                 "name": "Start forming",
+                "currency": "starfragments",
                 "max" : 1,
-                "starting_cost":1,
+                "starting_cost":10000000,
                 "effect": { "stat": "BlackHolePerSecond", "action": "add", "amount": 1 }
             }
         }

@@ -63,16 +63,21 @@ class Mouse {
     if (e.button === 0) this.left.press();
     if (e.button === 2) this.right.press();
     try { e.target.setPointerCapture(e.pointerId); } catch (err) {}
-    e.preventDefault();
-    e.stopPropagation();
+    // prevent defaults only when interacting with the canvas element to avoid interfering with other UI
+    if (e.target === this.canvas || this.canvas.contains && this.canvas.contains(e.target)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
   _onPointerUp(e) {
     if (e.button === 0) this.left.release();
     if (e.button === 2) this.right.release();
     try { e.target.releasePointerCapture(e.pointerId); } catch (err) {}
-    e.preventDefault();
-    e.stopPropagation();
+    if (e.target === this.canvas || this.canvas.contains && this.canvas.contains(e.target)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
   _onPointerMove(e) {
@@ -95,6 +100,16 @@ class Mouse {
     this._lastY = this.y;
     this.left.update(dt);
     this.right.update(dt);
+  }
+
+  // Remove event listeners when disposed to avoid leaks
+  dispose() {
+    try {
+      this.canvas.removeEventListener('pointerdown', this._onPointerDown, {passive: false});
+      this.canvas.removeEventListener('pointerup', this._onPointerUp, {passive: false});
+      this.canvas.removeEventListener('pointermove', this._onPointerMove, {passive: true});
+      this.canvas.removeEventListener('contextmenu', this._onContextMenu);
+    } catch (e) {}
   }
 }
 
@@ -160,10 +175,16 @@ class Keys {
     if (!this._map[key]) this._map[key] = new Button();
     return this._map[key];
   }
+
+  // Remove key listeners to avoid leaks
+  dispose() {
+    try {
+      window.removeEventListener('keydown', this._onKeyDown, {passive: false});
+      window.removeEventListener('keyup', this._onKeyUp, {passive: false});
+    } catch (e) {}
+  }
 }
 
-// Globalize classes so other modules can instantiate or use them
-window.Mouse = Mouse;
-window.Keys = Keys;
+// Export classes; avoid creating globals here. Use Core/DataManager for centralized instances.
 
 export { Mouse, Keys };
