@@ -1,4 +1,4 @@
-class UpgradesManager {
+export default class UpgradesManager {
     constructor(saver) {
         this.saver = saver
         this.shops = null
@@ -77,5 +77,3 @@ class UpgradesManager {
         return value
     }
 }
-
-export default UpgradesManager

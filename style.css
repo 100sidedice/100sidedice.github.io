@@ -365,6 +365,64 @@ canvas {
 }
 .mainboard-close:hover { background: rgba(255,255,255,0.06); }
 
+/* Images shown inside the mainBoard content area */
+.mainboard-images {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  height: auto; /* let content determine height */
+  margin-top: 0.75rem;
+  overflow: visible; /* allow images to extend without cropping */
+}
+.mainboard-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 70vh; /* cap height to viewport to avoid huge images */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Inserted images: participate in document flow and are centered */
+.mainboard-images.inserted {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0;
+  text-align: center;
+  overflow: visible;
+}
+.mainboard-image.spacer {
+  /* occupies flow space; hidden visually but reserves image size */
+  visibility: hidden;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 60vh;
+  height: auto;
+}
+.mainboard-image.inserted {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translate(var(--tx, 0%), var(--ty, 0%)) scale(var(--scale, 1));
+  max-width: 90%;
+  max-height: 60vh;
+  pointer-events: none;
+}
+
+/* Overlay container: absolute-positioned images that don't affect flow */
+.mainboard-images.overlay {
+  position: relative; /* keeps overlay images positioned relative to this container */
+  width: 100%;
+  height: 0; /* overlay doesn't take space */
+}
+
 /* pressed state applied via JS to ensure it clears on mouseup outside */
 .tilt.pressed {
   transform: scale(var(--tilt-scale-active)) rotate(var(--tilt-rotate-active));
@@ -383,4 +441,35 @@ canvas {
     transform: none !important;
     will-change: auto !important;
   }
+}
+
+/* Projects article blocks: keep natural flow and constrain image width with side buffer */
+.project-item {
+  padding: 0.75rem 0;
+  margin: 0;
+}
+.project-item time {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.25rem;
+}
+.project-item h2 {
+  margin: 0.25rem 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+.project-item figure {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+.project-image {
+  display: block;
+  width: 100%;
+  max-width: min(720px, calc(100% - 48px)); /* leave 24px buffer each side */
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-dialog);
 }

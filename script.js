@@ -85,6 +85,7 @@ class Program {
 
         program.mainBoard.addButton('about', 'click', 'about')
         program.mainBoard.addButton('play', 'click', 'play')
+        program.mainBoard.addButton('projects', 'click', 'projects')
 
         const dragon = new Image();
         dragon.src = "Dragon/dragon.png";

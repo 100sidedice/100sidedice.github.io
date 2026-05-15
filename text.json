@@ -1,11 +1,32 @@
 {
+    "projects": [
+        {
+            "link": "https://100sidedice.github.io/paintFactory2.0/",
+            "time": "2026-05-15",
+            "title": "Paint Factory 2.0",
+            "image": "Projects/images/PaintFactory.png"
+        },
+        {
+            "link": "https://100sidedice.github.io/DragonsDontLikeTetris/",    
+            "time": "2026-05-15",
+            "title": "Dragons don't like tetris",
+            "image": "Projects/images/DragonsDontLikeTetris.png"
+        },
+        {
+            "link": "https://100sidedice.github.io/DwarvesAreStealingMyBread/",
+            "time": "2026-05-15",
+            "title": "Dwarves are stealing my bread",
+            "image": "Projects/images/DwarvesAreStealingMyBread.png"
+        }
+        
+    ],
     "about":{
         "text": [
             "Elijah Delima/100sidedice.",
             "I am a programmer with asperations to become a great game dev.",
             "I mainly code in Javascript, although I do every now and then use Python or Godot.",
             "History",
-            "I stared programming in 6th grade, during Covid, on Khan academy. I kinda just wanted to learn how, not for really any reason at the time.  Over the next couple years, I became pretty fluent programming on Khan academy, but I felt limited by the envirment, so I started learning a few different languages, like python, C#, godot, etc. Eventrally, I ended up settling back to JS, as it's just the language I was most confortable with. But that time was different, as I was fully working in a browser rather then a sandboxed learning platform.   Then my skill started to majorly grow. Over the next few years in highschool, I learend content creation on youtube, godot, python/pygame, how to use firebase and make multiplayer/online services. How to make advanced data structure, etc. And that brings us to today. I am mainly doing game development, with a side of software & game asset creation. "
+            "I stared programming in 6th grade, during Covid, on Khan academy. I kinda just wanted to learn how, not for really any reason at the time.  Over the next couple years, I became pretty fluent programming on Khan academy, but I felt limited by the environment, so I started learning a few different languages, like python, C#, godot, etc. Eventrally, I ended up settling back to JS, as it's just the language I was most confortable with. But that time was different, as I was fully working in a browser rather then a sandboxed learning platform.   Then my skill started to majorly grow. Over the next few years in highschool, I learend content creation on youtube, godot, python/pygame, how to use firebase and make multiplayer/online services. How to make advanced data structure, etc. And that brings us to today. I am mainly doing game development, with a side of software & game asset creation. "
         ],
         "types":[
             "h2",
@@ -18,7 +39,7 @@
     "play":{
         "text":[
             "Shoot the stars",
-            "Having just a website is boring. I'm a game developer, after all. So I made the background a game.",
+            "Having just a website is boring. I'm a game developer, after all.",
             "So, I present <b>Shoot The Stars</b>: An incremental game about destrying the universe, one star at a time.",
             "Start by clicking on of the stars in the background to gain star fragments."
         ],
