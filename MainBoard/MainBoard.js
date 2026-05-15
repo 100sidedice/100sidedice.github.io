@@ -143,6 +143,11 @@ function renderProjects(textFile){
             } else {
                 out += `<figure><img class=\"project-image tilt\" src=\"${src}\" alt=\"${p.title || ''}\"></figure>`
             }
+            if (p.description) {
+                const escaped = escapeHtml(p.description)
+                const withBreaks = escaped.replace(/\r?\n/g, '<br>')
+                out += `<p class="project-description">${withBreaks}</p>`
+            }
         }
         if (p.text && p.text.length>1){
             for (let i=1;i<p.text.length;i++){
@@ -152,6 +157,12 @@ function renderProjects(textFile){
         out += `</article>`
     }
     return out
+}
+
+function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function (s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[s]
+    })
 }
 function parseText(textFile, name_key, text_key, token_key, image_key){
     const entry = textFile[name_key]

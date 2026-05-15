@@ -2,21 +2,24 @@
     "projects": [
         {
             "link": "https://100sidedice.github.io/paintFactory2.0/",
-            "time": "2026-05-15",
-            "title": "Paint Factory 2.0",
-            "image": "Projects/images/PaintFactory.png"
+            "time": "2026-05-12",
+            "title": "Paint Factory",
+            "image": "Projects/images/PaintFactory.png",
+            "description": "A puzzle game about mixing paint colors."
         },
         {
             "link": "https://100sidedice.github.io/DragonsDontLikeTetris/",    
-            "time": "2026-05-15",
+            "time": "2025-10-31",
             "title": "Dragons don't like tetris",
-            "image": "Projects/images/DragonsDontLikeTetris.png"
+            "image": "Projects/images/DragonsDontLikeTetris.png",
+            "description": "A arcade game where you play as a dragon with the sole goal of destroying tetris. \n Made for the itch.io falling blocks game jam 2025."
         },
         {
             "link": "https://100sidedice.github.io/DwarvesAreStealingMyBread/",
-            "time": "2026-05-15",
+            "time": "2025-12-31",
             "title": "Dwarves are stealing my bread",
-            "image": "Projects/images/DwarvesAreStealingMyBread.png"
+            "image": "Projects/images/DwarvesAreStealingMyBread.png",
+            "description": "A sandbox adventure game where you play as a dwarf trying to uncover the baked secrets of the holy bread."
         }
         
     ],

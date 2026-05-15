@@ -473,3 +473,12 @@ canvas {
   border-radius: 8px;
   box-shadow: var(--shadow-dialog);
 }
+
+.project-description {
+  margin: 0.5rem auto 0;
+  max-width: min(720px, calc(100% - 48px));
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+}
