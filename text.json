@@ -20,6 +20,13 @@
             "title": "Dwarves are stealing my bread",
             "image": "Projects/images/DwarvesAreStealingMyBread.png",
             "description": "A sandbox adventure game where you play as a dwarf trying to uncover the baked secrets of the holy bread."
+        },
+        {
+            "link": "https://eligamer5678.itch.io/tic-tac-challange",
+            "time": "2025-8-31",
+            "title": "Tic Tac Challange",
+            "image": "Projects/images/TicTacChallange.png",
+            "description": "A large puzzle game revolving around \"what if we combined tic tac toe with temperature mechanics.\""
         }
         
     ],
